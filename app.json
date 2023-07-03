@@ -2,7 +2,7 @@
   "expo": {
     "name": "Locality Pro",
     "slug": "locality-contractor",
-    "version": "1.0.2",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -27,11 +27,12 @@
       "bundleIdentifier": "com.locality.localityPro"
     },
     "android": {
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.locality.localityApp",
+      "package": "com.locality.localityPro",
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.ACCESS_COARSE_LOCATION",

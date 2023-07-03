@@ -21,6 +21,7 @@ import { useSelector } from "react-redux";
 import baseURL from "../../utils/baseURL";
 
 import HeaderTitleOption from "../../components/HeaderTitleOption";
+import { Platform } from "react-native";
 export default function Profile({ navigation, route }) {
   const userInfo = useSelector((x) => x.auth.userInfo);
 
@@ -54,7 +55,9 @@ export default function Profile({ navigation, route }) {
               </Text> */}
               <Stack alignItems={"center"} space={"1"} direction="row">
                 <Entypo name="location-pin" size={16} color="black" />
-                <Text color={colors.darkGray}>{userInfo?.address} </Text>
+                <Text w={!Platform.isPad && "85%"} color={colors.darkGray}>
+                  {userInfo?.address}{" "}
+                </Text>
               </Stack>
               <Stack alignItems={"center"} space={"1"} direction="row">
                 <FontAwesome
@@ -90,7 +93,7 @@ export default function Profile({ navigation, route }) {
             Skills
           </Text>
           <Text bg={colors.white} p="2" borderRadius={"md"} w="96%">
-            {userInfo.profile.contractor.businessType}
+            {userInfo.skill.name}
           </Text>
           <Text fontWeight={"semibold"} color={colors.secondary} fontSize="md">
             Skills Types

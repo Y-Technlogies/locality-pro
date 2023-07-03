@@ -1,20 +1,8 @@
 import React from "react";
-import {
-  Box,
-
-  HStack,
-
-  IconButton,
-  Image,
-
-  Pressable,
-
-  Text,
-} from "native-base";
+import { Box, HStack, IconButton, Image, Pressable, Text } from "native-base";
 import { hp, wp } from "../utils/screens";
 
 export default function SimpleHeader({ title, navigation }) {
-
   return (
     <Pressable onPress={navigation}>
       <Box

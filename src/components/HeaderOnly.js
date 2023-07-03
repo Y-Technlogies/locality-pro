@@ -1,12 +1,10 @@
 import React from "react";
-import { Box, Center, HStack, Icon, IconButton, Text } from "native-base";
+import { Box, HStack, Icon, IconButton, Text } from "native-base";
 import { hp, wp } from "../utils/screens";
 import colors from "../theme/colors";
-import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+
 import { Platform } from "react-native";
-export default function HeaderOnly({ title,steps }) {
-  const navigation = useNavigation();
+export default function HeaderOnly({ title, steps }) {
   return (
     <Box
       w={wp("100%")}
@@ -28,7 +26,7 @@ export default function HeaderOnly({ title,steps }) {
           {title}
         </Text>
         <Box bg={colors.primary} px="4" p="2" borderRadius={"full"}>
-          <Text  color={colors.white}>{steps}</Text>
+          <Text color={colors.white}>{steps}</Text>
         </Box>
       </HStack>
     </Box>

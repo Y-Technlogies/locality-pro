@@ -156,29 +156,58 @@ export default function AppDrawerContains({ navigation }) {
                   Manage my jobs
                 </Text>
               </Button>
+              <Button
+                onPress={() => navigation.navigate("CheckBalance")}
+                h="12"
+                justifyContent="flex-start"
+                variant="unstyled"
+                alignItems="center"
+                w={"100%"}
+                leftIcon={
+                  <Icon
+                    mr="2"
+                    as={MaterialIcons}
+                    name="account-balance-wallet"
+                    size="lg"
+                    color={colors.darkGray}
+                  />
+                }
+              >
+                <Text
+                  fontSize="md"
+                  fontWeight="semibold"
+                  color={colors.darkGray}
+                >
+                  Check My Balance
+                </Text>
+              </Button>
+              <Button
+                onPress={() => navigation.navigate("History")}
+                h="12"
+                justifyContent="flex-start"
+                variant="unstyled"
+                alignItems="center"
+                w={"100%"}
+                leftIcon={
+                  <Icon
+                    mr="2"
+                    as={MaterialIcons}
+                    name="history"
+                    size="lg"
+                    color={colors.darkGray}
+                  />
+                }
+              >
+                <Text
+                  fontSize="md"
+                  fontWeight="semibold"
+                  color={colors.darkGray}
+                >
+                  Withdraw History
+                </Text>
+              </Button>
             </>
           )}
-          {/* <Button
-            onPress={() => navigation.navigate("Faqs")}
-            h="12"
-            justifyContent="flex-start"
-            variant="unstyled"
-            alignItems="center"
-            w={wp("60%")}
-            leftIcon={
-              <Icon
-                mr="2"
-                as={AntDesign}
-                name="questioncircle"
-                size="lg"
-                color={colors.darkGray}
-              />
-            }
-          >
-            <Text fontSize="md" fontWeight="semibold" color={colors.darkGray}>
-              FAQs
-            </Text>
-          </Button> */}
         </Stack>
         <Stack space={2} mb="3">
           <Divider />

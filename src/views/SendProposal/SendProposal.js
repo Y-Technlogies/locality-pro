@@ -14,7 +14,7 @@ import BtnContainer from "../../components/BtnContainer";
 import { wp } from "../../utils/screens";
 import Toast from "react-native-toast-message";
 import { useSelector } from "react-redux";
-import { useSendProposalMutation } from "../../store/services/appApi";
+import { useGetSubmittedProposalQuery, useSendProposalMutation } from "../../store/services/appApi";
 export default function SendProposal({ route, navigation }) {
   const [price, setPrice] = React.useState("");
   const [description, setDescription] = React.useState("");

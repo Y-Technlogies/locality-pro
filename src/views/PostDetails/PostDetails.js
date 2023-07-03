@@ -45,7 +45,7 @@ export default function PostDetails({ route, navigation }) {
     <Box safeArea bg={colors.light} flex="1">
       <SimpleHeader navigation={handleNavigation} title={"Post Details"} />
       <ScrollView>
-        <ImageSlider photos={photos} />
+    { !photos.length === 0 &&   <ImageSlider photos={photos} />}
         <Stack space={"2"} p="3">
           <Stack space={"2"} p="3" bg={colors.white} borderRadius={"md"}>
             {/* <HStack>

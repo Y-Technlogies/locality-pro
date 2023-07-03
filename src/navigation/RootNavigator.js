@@ -37,6 +37,12 @@ import VerifyOTP from "../views/Signup/VerifyOTP";
 import SendProposal from "../views/SendProposal/SendProposal";
 import ForgotPassword from "../views/Signin/ForgotPassword";
 import SendOTPForgotPassword from "../views/Signin/SendOTPForgotPassword";
+import CheckBalance from "../views/Withdraw/CheckBalance";
+import History from "../views/Withdraw/History";
+import Withdraw from "../views/Withdraw/Withdraw";
+
+import { useNavigation } from "@react-navigation/native";
+import EditProfile from "../views/EditProfile/EditProfile";
 
 const AppDrawerStack = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
@@ -151,6 +157,7 @@ const AppHome = () => {
 };
 
 const AppNavigator = () => {
+  const navigation = useNavigation();
   return (
     <AppDrawerStack.Navigator
       // initialRouteName="AppHome"
@@ -180,6 +187,10 @@ const AppNavigator = () => {
         component={ProposalDetails}
         name="ProposalDetails"
       />
+      <AppDrawerStack.Screen component={CheckBalance} name="CheckBalance" />
+      <AppDrawerStack.Screen component={History} name="History" />
+      <AppDrawerStack.Screen component={Withdraw} name="Withdraw" />
+      <AppDrawerStack.Screen component={EditProfile} name="EditProfile" />
     </AppDrawerStack.Navigator>
   );
 };
@@ -207,6 +218,7 @@ const RootNavigator = () => {
       <AppStack.Screen component={SetLocation} name="SetLocation" />
       <AppStack.Screen component={SendOTP} name="SendOTP" />
       <AppStack.Screen component={VerifyOTP} name="VerifyOTP" />
+
       <AppStack.Screen
         component={SendOTPForgotPassword}
         name="SendOTPForgotPassword"

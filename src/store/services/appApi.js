@@ -149,6 +149,40 @@ export const appApi = createApi({
         };
       },
     }),
+    checkBalance: builder.query({
+      query: () => {
+        return {
+          url: "/balance/get_current_balance",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          method: "GET",
+        };
+      },
+    }),
+    sendWithdrawRequest: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/balance/add_withdraw_request",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          method: "POST",
+          body,
+        };
+      },
+    }),
+    getWith: builder.query({
+      query: () => {
+        return {
+          url: "/balance/get_current_balance",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          method: "GET",
+        };
+      },
+    }),
   }),
 });
 export const {
@@ -163,4 +197,6 @@ export const {
   useGetOneProposalQuery,
   useGetContractorJobQuery,
   useDeleteChatMutation,
+  useCheckBalanceQuery,
+  useSendWithdrawRequestMutation,
 } = appApi;

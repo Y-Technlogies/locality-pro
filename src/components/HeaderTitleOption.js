@@ -40,9 +40,9 @@ export default function HeaderTitleOption({ title }) {
         navigation.navigate("Auth");
       } else {
         Toast.show({
-            type: "error",
-            text1: "Something went wrong.",
-          });
+          type: "error",
+          text1: "Something went wrong.",
+        });
       }
     } catch (error) {
       // console.log(
@@ -145,6 +145,21 @@ export default function HeaderTitleOption({ title }) {
             }}
           >
             <Box w="100%">
+              <Menu.Item>
+                <Pressable
+                  w="100%"
+                  onPress={() => navigation.navigate("EditProfile")}
+                >
+                  <HStack>
+                    <MaterialIcons
+                      name="edit"
+                      size={24}
+                      color={colors.darkGray}
+                    />
+                    <Text ml={"1"}>Edit Profile</Text>
+                  </HStack>
+                </Pressable>
+              </Menu.Item>
               <Menu.Item>
                 <Pressable w="100%" onPress={() => setShowModal((p) => !p)}>
                   <HStack>

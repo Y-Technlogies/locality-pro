@@ -20,7 +20,6 @@ export default function HeaderBackBtn() {
       h={hp("11%")}
       bg={colors.primary}
       borderBottomRadius="3"
-      
     >
       <HStack mt={"2"} alignItems={"center"} justifyContent="center">
         <IconButton

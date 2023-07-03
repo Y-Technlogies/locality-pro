@@ -111,7 +111,8 @@ export const authApi = createApi({
             response.status === 200 && !result.isError, // Our tricky API always returns a 200, but sets an `isError` property when there is an error.
         };
       },
-    }),  forgotPasswordSendOTP: builder.mutation({
+    }),
+    forgotPasswordSendOTP: builder.mutation({
       query: (body) => {
         ////console.log({body});
         return {
@@ -123,7 +124,8 @@ export const authApi = createApi({
           body,
         };
       },
-    }),forgotPassword: builder.mutation({
+    }),
+    forgotPassword: builder.mutation({
       query: (body) => {
         ////console.log({body});
         return {
@@ -135,7 +137,20 @@ export const authApi = createApi({
           body,
         };
       },
-    })
+    }),
+    updateProfile: builder.mutation({
+      query: (body) => {
+        ////console.log({body});
+        return {
+          url: "/auth/contractor_update",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          method: "POST",
+          body,
+        };
+      },
+    }),
   }),
 });
 
@@ -148,5 +163,6 @@ export const {
   useGetAllCategoriesQuery,
   useGetAllSubCategoriesQuery,
   useForgotPasswordSendOTPMutation,
-  useForgotPasswordMutation
+  useForgotPasswordMutation,
+  useUpdateProfileMutation,
 } = authApi;
