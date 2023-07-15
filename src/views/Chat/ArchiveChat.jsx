@@ -15,14 +15,13 @@ import {
   Divider,
   FlatList,
   Spinner,
-  Button,
 } from "native-base";
-import { Entypo } from "@expo/vector-icons";
+
 import { hp } from "../../utils/screens";
 
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
-import { useMyChatRecordQuery } from "../../store/services/appApi";
+import { useMyArchiveChatQuery } from "../../store/services/appApi";
 import { useSelector } from "react-redux";
 import baseURL from "../../utils/baseURL";
 
@@ -30,51 +29,52 @@ import HeaderTitle from "../../components/HeaderTitle";
 import colors from "../../theme/colors";
 import EmptyList from "../../components/EmptyList";
 import { RefreshControl } from "react-native";
+import SimpleHeader from "../../components/SimpleHeader";
 
-export default function MessagesList({ navigation }) {
+export default function ArchiveChat({ navigation }) {
   const user = useSelector((x) => x.auth.userInfo._id);
   const [search] = React.useState("");
 
-  const { data, isLoading } = useMyChatRecordQuery({
+  const { data, isLoading } = useMyArchiveChatQuery({
     id: user,
     search: search,
   });
 
   return (
-    <Center h={hp("100%")}>
-      <Box flex="1" w="100%">
-        <HeaderTitle title="Chat" />
-        {isLoading ? (
-          <Box mt="3">
-            {" "}
-            <Spinner />
-          </Box>
-        ) : (
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Button
-              onPress={() => navigation.navigate("ArchiveChat")}
-              m="3"
-              leftIcon={<Icon as={Entypo} name="archive" size="sm" />}
-              variant={"outline"}
-            >
-              Archive Chat
-            </Button>
-            <Basic data={data} />
-          </ScrollView>
-        )}
-      </Box>
-    </Center>
+    <Box safeArea>
+      <Center h={hp("100%")}>
+        <Box flex="1" w="100%">
+          <SimpleHeader
+            navigation={() => navigation.navigate("Chat")}
+            title="Archive Chat"
+          />
+          {isLoading ? (
+            <Box mt="3">
+              {" "}
+              <Spinner />
+            </Box>
+          ) : (
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <Basic data={data} />
+            </ScrollView>
+          )}
+        </Box>
+      </Center>
+    </Box>
   );
 }
 
 function Basic({ data }) {
   const navigation = useNavigation();
+  const [chatData] = useState([]);
 
   const renderItem = ({ item, index }) => {
     return (
       <Box>
         <Pressable
-          onPress={() => navigation.navigate("ChatDetails", { data: item })}
+          onPress={() =>
+            navigation.navigate("ChatDetailsArchived", { data: item })
+          }
         >
           <Box
             shadow={"1"}
@@ -135,7 +135,7 @@ function Basic({ data }) {
         data={data}
         renderItem={renderItem}
         refreshControl={<RefreshControl onRefresh={() => refetch()} />}
-        ListEmptyComponent={<EmptyList  />}
+        ListEmptyComponent={<EmptyList />}
         // renderHiddenItem={renderHiddenItem}
         // rightOpenValue={-130}
         // previewRowKey={"0"}

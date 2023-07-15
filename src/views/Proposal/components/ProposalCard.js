@@ -37,7 +37,7 @@ export default function ProposalCard({ item }) {
           />
           <VStack pl="2">
             <Text>{item?.job?.by?.name}</Text>
-            <Text>{moment(item.job.createdAt).format("YYYY-MM-DD")}</Text>
+            <Text>{moment(item?.job?.createdAt).format("YYYY-MM-DD")}</Text>
           </VStack>
         </HStack>
         <Box>

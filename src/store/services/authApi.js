@@ -142,7 +142,20 @@ export const authApi = createApi({
       query: (body) => {
         ////console.log({body});
         return {
-          url: "/auth/contractor_update",
+          url: "/auth/update_skills",
+          headers: {
+            "Content-type": "application/json; charset=UTF-8",
+          },
+          method: "POST",
+          body,
+        };
+      },
+    }),
+    updateAddress: builder.mutation({
+      query: (body) => {
+        console.log("🚀 ~ file: authApi.js:156 ~ body:", body)
+        return {
+          url: "/auth/update_current_location",
           headers: {
             "Content-type": "application/json; charset=UTF-8",
           },
@@ -165,4 +178,5 @@ export const {
   useForgotPasswordSendOTPMutation,
   useForgotPasswordMutation,
   useUpdateProfileMutation,
+  useUpdateAddressMutation,
 } = authApi;

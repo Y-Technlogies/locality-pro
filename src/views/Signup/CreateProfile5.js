@@ -7,7 +7,7 @@ import HeaderOnly from "../../components/HeaderOnly";
 
 import Toast from "react-native-toast-message";
 
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { useSignUpMutation } from "../../store/services/authApi";
 import axios from "axios";
 import baseURL from "../../utils/baseURL";
@@ -72,6 +72,7 @@ export default function CreateProfile5({ navigation, route }) {
           phone: data?.phone,
         });
       } else {
+        Alert.alert(JSON.stringify(userData));
       }
       setIsLoading(false);
     } catch (error) {

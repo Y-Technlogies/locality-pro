@@ -26,7 +26,6 @@ import CreateProfile1 from "../views/Signup/CreateProfile1";
 import CreateProfile2 from "../views/Signup/CreateProfile2";
 import CreateProfile3 from "../views/Signup/CreateProfile3";
 import CreateProfile4 from "../views/Signup/CreateProfile4";
-
 import { useSelector } from "react-redux";
 import ProposalDetails from "../views/Proposal/ProposalDetails";
 import Profile from "../views/Profile/Profile";
@@ -40,10 +39,9 @@ import SendOTPForgotPassword from "../views/Signin/SendOTPForgotPassword";
 import CheckBalance from "../views/Withdraw/CheckBalance";
 import History from "../views/Withdraw/History";
 import Withdraw from "../views/Withdraw/Withdraw";
-
-import { useNavigation } from "@react-navigation/native";
 import EditProfile from "../views/EditProfile/EditProfile";
-
+import ArchiveChat from "../views/Chat/ArchiveChat";
+import ChatDetailsArchived from "../views/Chat/ChatDetailsArchived";
 const AppDrawerStack = createDrawerNavigator();
 const Tab = createBottomTabNavigator();
 const AppStack = createNativeStackNavigator();
@@ -51,6 +49,7 @@ const VisitorStack = createNativeStackNavigator();
 
 const AppHome = () => {
   const isAuthenticated = useSelector((x) => x.auth.isAuthenticated);
+  const setAddress = useSelector((x) => x.address.setAddress);
   const introShown = useSelector((x) => x.intro.introShown);
 
   let backButtonPressedOnce = false;
@@ -88,6 +87,18 @@ const AppHome = () => {
         }}
       >
         <VisitorStack.Screen name="Home" component={Home} />
+      </VisitorStack.Navigator>
+    );
+  }
+  if (!setAddress) {
+    return (
+      <VisitorStack.Navigator
+        initialRouteName={introShown ? "App" : "Onboarding"}
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <VisitorStack.Screen name="SetLocation" component={SetLocation} />
       </VisitorStack.Navigator>
     );
   }
@@ -157,7 +168,6 @@ const AppHome = () => {
 };
 
 const AppNavigator = () => {
-  const navigation = useNavigation();
   return (
     <AppDrawerStack.Navigator
       // initialRouteName="AppHome"
@@ -175,6 +185,7 @@ const AppNavigator = () => {
       {/* <AppDrawerStack.Screen component={SearchResult} name="SearchResult" /> */}
       <AppDrawerStack.Screen component={AppHome} name="AppHome" />
       <AppDrawerStack.Screen component={Chat} name="Chat" />
+      <AppDrawerStack.Screen component={ArchiveChat} name="ArchiveChat" />
       <AppDrawerStack.Screen component={ChatDetails} name="ChatDetails" />
       <AppDrawerStack.Screen component={PostDetails} name="PostDetails" />
 
@@ -191,6 +202,7 @@ const AppNavigator = () => {
       <AppDrawerStack.Screen component={History} name="History" />
       <AppDrawerStack.Screen component={Withdraw} name="Withdraw" />
       <AppDrawerStack.Screen component={EditProfile} name="EditProfile" />
+      <AppDrawerStack.Screen component={ChatDetailsArchived} name="ChatDetailsArchived" />
     </AppDrawerStack.Navigator>
   );
 };
@@ -215,10 +227,9 @@ const RootNavigator = () => {
       <AppStack.Screen component={ProfileSubmit} name="ProfileSubmit" />
       <AppStack.Screen component={AppNavigator} name="App" />
       <AppStack.Screen component={SetAddress} name="SetAddress" />
-      <AppStack.Screen component={SetLocation} name="SetLocation" />
+
       <AppStack.Screen component={SendOTP} name="SendOTP" />
       <AppStack.Screen component={VerifyOTP} name="VerifyOTP" />
-
       <AppStack.Screen
         component={SendOTPForgotPassword}
         name="SendOTPForgotPassword"

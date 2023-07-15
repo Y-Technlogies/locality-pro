@@ -61,7 +61,7 @@ export default function OnboardingScreen({ navigation }) {
   );
 
   return (
-    <Box flex={1} safeArea>
+    <Box flex={1} >
       <Onboarding
         // DotComponent={Square}
         NextButtonComponent={Next}

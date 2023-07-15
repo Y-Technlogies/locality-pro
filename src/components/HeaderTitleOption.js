@@ -26,6 +26,11 @@ export default function HeaderTitleOption({ title }) {
   const userInfo = useSelector((x) => x.auth.userInfo);
   const [deleteUser, { isLoading }] = useDeleteUserMutation();
   const dispatch = useDispatch();
+  const [isOpenMenu, setIsOpenMenu] = React.useState(false);
+  console.log(
+    "🚀 ~ file: HeaderTitleOption.js:30 ~ HeaderTitleOption ~ isOpenMenu:",
+    isOpenMenu
+  );
   const handleDelete = async () => {
     try {
       const { data } = await deleteUser(userInfo?._id);
@@ -124,14 +129,18 @@ export default function HeaderTitleOption({ title }) {
             {title}
           </Text>
         </HStack>
-        <Box mr="3">
+        <Box>
           <Menu
+            defaultIsOpen={isOpenMenu}
+            //   isOpen={isOpenMenu}
             w={wp("52%")}
             alignItems={"flex-end"}
             mt="8"
+            onClose={() => setIsOpenMenu(false)}
             trigger={(triggerProps) => {
               return (
                 <Pressable
+                  onPress={() => setIsOpenMenu(true)}
                   accessibilityLabel="More options menu"
                   {...triggerProps}
                 >
@@ -145,10 +154,13 @@ export default function HeaderTitleOption({ title }) {
             }}
           >
             <Box w="100%">
-              <Menu.Item>
+              {/* <Menu.Item>
                 <Pressable
                   w="100%"
-                  onPress={() => navigation.navigate("EditProfile")}
+                  onPress={() => {
+                    navigation.navigate("EditProfile");
+                    setIsOpenMenu(false);
+                  }}
                 >
                   <HStack>
                     <MaterialIcons
@@ -159,7 +171,7 @@ export default function HeaderTitleOption({ title }) {
                     <Text ml={"1"}>Edit Profile</Text>
                   </HStack>
                 </Pressable>
-              </Menu.Item>
+              </Menu.Item> */}
               <Menu.Item>
                 <Pressable w="100%" onPress={() => setShowModal((p) => !p)}>
                   <HStack>

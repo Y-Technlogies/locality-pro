@@ -6,6 +6,7 @@ import {
   HStack,
   Icon,
   Image,
+  Pressable,
   ScrollView,
   Stack,
   Text,
@@ -45,14 +46,10 @@ export default function Profile({ navigation, route }) {
                 uri: baseURL + "/contractor_photos/" + userInfo.photo,
               }}
             />
-            <Stack pl="2">
+            <Stack pl="2" w="52%">
               <Text fontSize="md" mt="2" fontWeight="semibold">
                 {userInfo?.profile?.contractor?.organization}
               </Text>
-
-              {/* <Text fontSize="md" fontWeight="semibold">
-                {workTitle}
-              </Text> */}
               <Stack alignItems={"center"} space={"1"} direction="row">
                 <Entypo name="location-pin" size={16} color="black" />
                 <Text w={!Platform.isPad && "85%"} color={colors.darkGray}>
@@ -77,6 +74,16 @@ export default function Profile({ navigation, route }) {
               </Stack>
               <Stack direction={"row"} space="2" mt="2"></Stack>
             </Stack>
+            <Pressable onPress={() => navigation.navigate("EditProfile")}>
+              <Box
+                borderRadius={"md"}
+                mr="2"
+                p="2"
+                bg={"rgba(0, 145, 166, 0.08)"}
+              >
+                <Text color={"#0091A6"}>Profile Update</Text>
+              </Box>
+            </Pressable>
           </HStack>
 
           <Text color={"#0091A6"} fontSize="md">

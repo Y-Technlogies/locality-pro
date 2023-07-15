@@ -5,37 +5,35 @@ import * as Location from "expo-location";
 import { Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { setAddress } from "../../store/slices/addressSlice";
+import { useUpdateAddressMutation } from "../../store/services/authApi";
 export default function SetLocation({ navigation }) {
-  const [isLoading, setIsLoading] = React.useState(false);
   const dispatch = useDispatch();
+  const [updateAddress, { isLoading }] = useUpdateAddressMutation();
   const setLocation = async () => {
     try {
-      setIsLoading(true);
       let { status } = await Location.requestForegroundPermissionsAsync();
+
       if (status === "granted") {
         const { coords } = await Location.getCurrentPositionAsync({});
         const { latitude, longitude } = coords;
-        let response = await Location.reverseGeocodeAsync({
-          latitude,
-          longitude,
-        });
 
         const payload = {
-          location: coords,
-          address: response[0],
+          latitude,
+          longitude,
         };
-        dispatch(setAddress(payload));
-        setIsLoading(false);
-        navigation.navigate("SetAddress");
+        console.log("🚀 ~ file: SetLocation.js:21 ~ setLocation ~ payload:", payload)
+        const { data, error } =await updateAddress(payload);
+        console.log("🚀 ~ file: SetLocation.js:25 ~ setLocation ~  data, error:",  data, error)
+        dispatch(setAddress({ location: coords }));
+
+        navigation.navigate("App");
       } else {
         Alert.alert(
           "Permission to access location was denied.you'd still be suggested services and service providers available, but the search results may not be related closely to you."
         );
-        setIsLoading(false);
       }
     } catch (e) {
-
-      setIsLoading(false);
+    console.log("🚀 ~ file: SetLocation.js:36 ~ setLocation ~ e:", e)
     }
   };
   return (
@@ -67,10 +65,7 @@ export default function SetLocation({ navigation }) {
         >
           Allow
         </Button>
-        <Button
-          variant={"link"}
-          onPress={() =>    navigation.navigate("App")}
-        >
+        <Button variant={"link"} onPress={() => navigation.navigate("App")}>
           Skip
         </Button>
       </Center>

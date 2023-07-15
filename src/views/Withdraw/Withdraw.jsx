@@ -5,7 +5,6 @@ import BtnContainer from "../../components/BtnContainer";
 import { wp } from "../../utils/screens";
 import Toast from "react-native-toast-message";
 import { useSelector } from "react-redux";
-import { useUserInfoQuery } from "../../store/services/authApi";
 import { useSendWithdrawRequestMutation } from "../../store/services/appApi";
 export default function Withdraw({ navigation }) {
   const [account_name, setAccount_name] = React.useState("");
@@ -17,10 +16,7 @@ export default function Withdraw({ navigation }) {
   const [sendWithdrawRequest, { isLoading }] = useSendWithdrawRequestMutation();
 
   const user = useSelector((x) => x.auth.userInfo);
-  console.log(
-    "🚀 ~ file: Withdraw.jsx:20 ~ Withdraw ~ user:",
-    JSON.stringify(user)
-  );
+
   const handleSubmit = async () => {
     try {
       if (
@@ -81,24 +77,29 @@ export default function Withdraw({ navigation }) {
           routing_number,
           bank,
         };
-        console.log(
-          "🚀 ~ file: Withdraw.jsx:79 ~ handleSubmit ~ payload:",
-          payload
-        );
         const { data, error } = await sendWithdrawRequest(payload);
-        console.log("🚀 ~ file: Withdraw.jsx:89 ~ handleSubmit ~ data:", data);
+        setAccount_name("");
+        setAccount_number("");
+        setBranch("");
+        setBank("");
+        setRouting_number("");
+        setAmount("");
         if (error) {
           Toast.show({
             type: "error",
             text1: error.message,
           });
-        }else{
-          {
-            Toast.show({
-              type: "error",
-              text1: data.message,
-            });
-          }
+        } else {
+          Toast.show({
+            type: "success",
+            text1: data.message,
+          });
+          setAccount_name("");
+          setAccount_number("");
+          setBranch("");
+          setBank("");
+          setRouting_number("");
+          setAmount("");
         }
       }
     } catch (error) {

@@ -4,7 +4,7 @@ import {
   useNavigation,
 } from "@react-navigation/native";
 import React from "react";
-import { StatusBar, } from "react-native";
+import { StatusBar } from "react-native";
 import { NativeBaseProvider, extendTheme } from "native-base";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -16,7 +16,6 @@ import * as SplashScreen from "expo-splash-screen";
 import nativeBaseTheme from "./src/theme/nativeBaseTheme";
 import colors from "./src/theme/colors";
 import Toast from "react-native-toast-message";
-import { StripeProvider } from "@stripe/stripe-react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Notifications from "expo-notifications";
 import LoadingScreen from "./src/views/LoadingScreen/LoadingScreen";
@@ -32,8 +31,6 @@ const MyTheme = {
 };
 function App() {
   const MainApp = () => {
-    const navigation = useNavigation();
-
     const [fontsLoaded] = useFonts({
       "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
       "Roboto-Bold": require("./assets/fonts/Roboto-Bold.ttf"),
@@ -100,12 +97,11 @@ function App() {
       <Provider store={store}>
         <PersistGate loading={<LoadingScreen />} persistor={persistor}>
           <StatusBar style="light" color={colors.primary} />
-          <StripeProvider publishableKey="pk_live_51MWeOcDA0x2BbgHkWUAXDg9VbJF4RAPr6HjtmAFIAsWlINHvSZMasaT8KBDrBABsWUtKwWcixirPPoTi3vqBKWia00iVojW86T">
-            <NavigationContainer theme={MyTheme}>
-              <MainApp />
-              <Toast />
-            </NavigationContainer>
-          </StripeProvider>
+
+          <NavigationContainer theme={MyTheme}>
+            <MainApp />
+            <Toast />
+          </NavigationContainer>
         </PersistGate>
       </Provider>
     </NativeBaseProvider>

@@ -27,12 +27,13 @@ import { useSelector } from "react-redux";
 import {
   useDeleteChatMutation,
   useGetMessagesQuery,
+  useMyArchiveChatQuery,
   useMyChatRecordQuery,
   useSendMessageMutation,
 } from "../../store/services/appApi";
 import axios from "axios";
 import Toast from "react-native-toast-message";
-const MessagesDetails = ({ navigation, route }) => {
+const ChatDetailsArchived = ({ navigation, route }) => {
   const [messages, setMessages] = React.useState([]);
   const chatData = route.params.data;
   const [socketConnected, setSocketConnected] = React.useState(false);
@@ -40,7 +41,7 @@ const MessagesDetails = ({ navigation, route }) => {
   const contractor = useSelector((x) => x.auth.userInfo);
   const token = useSelector((x) => x.auth?.tokens?.accessToken);
   const [showModal, setShowModal] = React.useState(false);
-  const { refetch: chatListRefetch } = useMyChatRecordQuery({
+  const { refetch: chatListRefetch } = useMyArchiveChatQuery({
     id: contractor?._id,
     search: "",
   });
@@ -101,6 +102,14 @@ const MessagesDetails = ({ navigation, route }) => {
 
       socket.emit("stop typing", chatData?._id);
       socket.emit("new message", messages[0]);
+      const res = await axios.get(
+        baseURL + `/chat/unarchive_pro_chat?chat=${chatData._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       chatListRefetch();
     } catch (e) {
       console.log({ e });
@@ -116,17 +125,12 @@ const MessagesDetails = ({ navigation, route }) => {
         navigation.goBack();
         chatListRefetch();
       }
-    } catch (error) {
-      console.log(
-        "🚀 ~ file: ChatDetails.js:110 ~ handleDelete ~ error:",
-        error
-      );
-    }
+    } catch (error) {}
   };
   const handleArchive = async () => {
     try {
       const res = await axios.get(
-        baseURL + `/chat/archive_pro_chat?chat=${chatData._id}`,
+        baseURL + `/chat/unarchive_pro_chat?chat=${chatData._id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -212,7 +216,7 @@ const MessagesDetails = ({ navigation, route }) => {
             <HStack justifyContent="center" alignItems={"center"}>
               <IconButton
                 m="2"
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate("ArchiveChat")}
                 alignItems={"center"}
                 borderRadius={"lg"}
                 variant="unstyled"
@@ -285,7 +289,7 @@ const MessagesDetails = ({ navigation, route }) => {
                           size={24}
                           color={colors.darkGray}
                         />
-                        <Text ml={"1"}>Archive Chat</Text>
+                        <Text ml={"1"}>Unarchive Chat</Text>
                       </HStack>
                     </Pressable>
                   </Menu.Item>
@@ -330,4 +334,4 @@ const MessagesDetails = ({ navigation, route }) => {
   );
 };
 
-export default MessagesDetails;
+export default ChatDetailsArchived;

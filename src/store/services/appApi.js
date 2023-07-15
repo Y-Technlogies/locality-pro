@@ -108,7 +108,17 @@ export const appApi = createApi({
     myChatRecord: builder.query({
       query: ({ id, search }) => {
         return {
-          url: `/chat/get_my_chats?id=${id}&search=${search}`,
+          url: `/chat/get_my_chats?id=${id}&search=${search}&role=pro`,
+          method: "GET",
+          validateStatus: (response, result) =>
+            response.status === 200 && !result.isError, // Our tricky API always returns a 200, but sets an `isError` property when there is an error.
+        };
+      },
+    }),
+    myArchiveChat: builder.query({
+      query: ({ id, search }) => {
+        return {
+          url: `/chat/get_my_archive_chats?id=${id}&search=${search}&role=pro`,
           method: "GET",
           validateStatus: (response, result) =>
             response.status === 200 && !result.isError, // Our tricky API always returns a 200, but sets an `isError` property when there is an error.
@@ -172,10 +182,10 @@ export const appApi = createApi({
         };
       },
     }),
-    getWith: builder.query({
-      query: () => {
+    getWithdrawHistory: builder.query({
+      query: ({ start_date, end_date, contractor }) => {
         return {
-          url: "/balance/get_current_balance",
+          url: `/balance/get_withdraw_lists?page=1&limit=25&search=&start_date=${start_date}&end_date=${end_date}&contractor=${contractor}&isDisbursed=`,
           headers: {
             "Content-type": "application/json; charset=UTF-8",
           },
@@ -199,4 +209,6 @@ export const {
   useDeleteChatMutation,
   useCheckBalanceQuery,
   useSendWithdrawRequestMutation,
+  useGetWithdrawHistoryQuery,
+  useMyArchiveChatQuery
 } = appApi;

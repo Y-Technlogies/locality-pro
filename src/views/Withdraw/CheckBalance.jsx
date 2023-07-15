@@ -5,10 +5,9 @@ import { hp, wp } from "../../utils/screens";
 import BtnContainer from "../../components/BtnContainer";
 import { useCheckBalanceQuery } from "../../store/services/appApi";
 
-
 export default function CheckBalance({ navigation }) {
-  const {data,isLoading,error}=useCheckBalanceQuery()
-  console.log("🚀 ~ file: CheckBalance.jsx:11 ~ CheckBalance ~ data,isLoading,error:", data,isLoading,error)
+  const { data, isLoading, error } = useCheckBalanceQuery();
+
   return (
     <Box safeArea>
       <SimpleHeader
@@ -33,7 +32,7 @@ export default function CheckBalance({ navigation }) {
           My current balance is
         </Text>
         <Text bold fontSize={"xl"} color="white">
-          100 Cad
+          ${data?.balance} Cad
         </Text>
       </Box>
       <Pressable onPress={() => navigation.navigate("Withdraw")}>

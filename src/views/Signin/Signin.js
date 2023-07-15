@@ -91,7 +91,7 @@ export default function Signin({ navigation, route }) {
           type: "success",
           text1: "Login successful!",
         });
-        navigation.navigate("Home");
+        navigation.navigate("App");
       } else {
         Toast.show({
           type: "error",

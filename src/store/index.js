@@ -20,7 +20,7 @@ import { addressSlice } from "./slices/addressSlice";
 import { introSlice } from "./slices/introSlice";
 
 const persistConfig = {
-  key: "@rootStorageV11",
+  key: "@rootStorageV132",
   version: 1,
   storage: AsyncStorage,
   whitelist: [authSlice.name, addressSlice.name,introSlice.name],

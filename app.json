@@ -59,12 +59,6 @@
         }
       ],
       [
-        "@stripe/stripe-react-native",
-        {
-          "enableGooglePay": false
-        }
-      ],
-      [
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Locality requires permission to access your location in order to suggest you available services and service providers around your city or town related closely."

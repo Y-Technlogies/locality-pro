@@ -27,12 +27,24 @@ const MultiSelectInput = ({
 
   const handleSelect = (value) => {
     if (selectedSpecialty?.includes(value)) {
-      setSelectedSpecialty(selectedSpecialty?.filter((v) => v !== value));
+      setSelectedSpecialty(
+        selectedSpecialty?.filter((v) => v.label !== value.label)
+      );
     } else {
-      setSelectedSpecialty([...selectedSpecialty, value]);
+      setSelectedSpecialty([
+        ...selectedSpecialty,
+        {
+          label: value.name,
+          value: value._id,
+        },
+      ]);
     }
   };
   const handleSelectNames = (value) => {
+    console.log(
+      "🚀 ~ file: MultiSelect.jsx:36 ~ handleSelectNames ~ value:",
+      value
+    );
     if (selectedValues.includes(value)) {
       setSelectedValues(selectedValues.filter((v) => v !== value));
     } else {
@@ -44,11 +56,11 @@ const MultiSelectInput = ({
   };
 
   const renderItem = ({ item }) => {
-
+    console.log("🚀 ~ file: MultiSelect.jsx:59 ~ renderItem ~ item:", item)
     return (
       <TouchableOpacity
         onPress={() => {
-          handleSelect(item._id);
+          handleSelect(item);
           handleSelectNames(item.name);
         }}
         style={styles.item}
